@@ -11,7 +11,7 @@
       "program": "${workspaceFolder}/seeder.js",
       "skipFiles": ["<node_internals>/**"],
       "args": ["-d"],
-      "console": "internalConsole"
+      "console": "integratedTerminal"
     },
     {
       "type": "node",
@@ -20,7 +20,7 @@
       "program": "${workspaceFolder}/seeder.js",
       "skipFiles": ["<node_internals>/**"],
       "args": ["-i"],
-      "console": "internalConsole"
+      "console": "integratedTerminal"
     },
     {
       "type": "node",
@@ -28,7 +28,7 @@
       "name": "Debug Server",
       "skipFiles": ["<node_internals>/**"],
       "program": "${workspaceFolder}\\server.js",
-      "console": "internalConsole"
+      "console": "integratedTerminal"
     }
   ]
 }
