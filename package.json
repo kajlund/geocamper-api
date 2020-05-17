@@ -2,7 +2,7 @@
   "name": "devcamper-api",
   "version": "1.0.0",
   "description": "Devcamper demo API",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "dev": "nodemon server",
     "start": "cross-env NODE_ENV=production node server",
@@ -11,7 +11,7 @@
   "keywords": [
     "api"
   ],
-  "author": "Kaj Lund",
+  "author": "LuKa",
   "license": "MIT",
   "dependencies": {
     "cross-env": "^7.0.2",
