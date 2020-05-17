@@ -1,3 +1,4 @@
+const colors = require('colors');
 const mongoose = require('mongoose');
 
 exports.connectDB = async () => {
@@ -7,5 +8,5 @@ exports.connectDB = async () => {
     useFindAndModify: false,
     useUnifiedTopology: true,
   });
-  console.log(`MongoDb connected: ${conn.connection.host}`);
+  console.log(`MongoDb connected: ${conn.connection.host}`.cyan.bold);
 };
