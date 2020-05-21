@@ -1,4 +1,5 @@
 const Bootcamp = require('../models/Bootcamp');
+const log = require('consola');
 
 const Geocoder = require('../utils/geocoder.js');
 const { CustomError } = require('../utils/errors');
@@ -8,7 +9,12 @@ const wrap = require('../middleware/wrap');
 // @route  GET /api/v1/bootcamps
 // @access Public
 exports.getBootcamps = wrap(async (req, res, next) => {
-  const bootcamps = await Bootcamp.find();
+  let queryStr = JSON.stringify(req.query);
+  queryStr = queryStr.replace(/\b(gt|gte|lt|lte|in)\b/g, (match) => `$${match}`);
+  // log.info(queryStr);
+  const query = JSON.parse(queryStr);
+
+  const bootcamps = await Bootcamp.find(query);
   res.status(200).json({ success: true, count: bootcamps.length, data: bootcamps });
 });
 
