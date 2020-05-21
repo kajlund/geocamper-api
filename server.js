@@ -1,6 +1,6 @@
-const colors = require('colors');
 const dotenv = require('dotenv');
 const express = require('express');
+const log = require('consola');
 const morgan = require('morgan');
 const { connectDB } = require('./config/db');
 const { CustomError } = require('./utils/errors');
@@ -29,7 +29,7 @@ app.use('/api/v1/bootcamps', require('./routes/bootcamps'));
 
 // Generic Error Handler
 app.use((err, req, res, next) => {
-  console.log(err.stack.red);
+  log.error(err);
 
   let status = 500;
   let message = 'Server Error';
@@ -57,13 +57,11 @@ const PORT = process.env.PORT || 5000;
 
 const server = app.listen(
   PORT,
-  console.log(
-    `Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold
-  )
+  log.success(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`)
 );
 
 // Handle unhandled rejections
 process.on('unhandledRejection', (err, promise) => {
-  console.error(`Error: ${err.message}`.red);
+  log.error(`Error: ${err.message}`);
   server.close(() => process.exit(1));
 });
