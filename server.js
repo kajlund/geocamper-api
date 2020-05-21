@@ -46,6 +46,18 @@ app.use((err, req, res, next) => {
     message = `Resource not found. Faulty id: ${err.value}`;
   }
 
+  // Mongoose Duplicate Key
+  if (err.code === 11000) {
+    status = 400;
+    message = 'Duplicate key value';
+  }
+
+  // Mongoose Validation Errors
+  if (err.name === 'ValidationError') {
+    status = 400;
+    message = Object.values(err.errors).map((val) => val.message);
+  }
+
   res.status(status).json({
     success: false,
     error: message,
