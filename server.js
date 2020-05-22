@@ -26,6 +26,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/v1/bootcamps', require('./routes/bootcamps'));
+app.use('/api/v1/courses', require('./routes/courses'));
 
 // Generic Error Handler
 app.use((err, req, res, next) => {
