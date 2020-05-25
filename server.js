@@ -1,5 +1,8 @@
+const path = require('path');
+
 const dotenv = require('dotenv');
 const express = require('express');
+const fileUpload = require('express-fileupload');
 const log = require('consola');
 const morgan = require('morgan');
 const { connectDB } = require('./config/db');
@@ -20,6 +23,14 @@ app.use(express.json());
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
+
+app.use(
+  fileUpload({
+    limits: { fileSize: 1 * 1024 * 1024 },
+  })
+);
+
+app.use(express.static(path.join(process.cwd(), 'public')));
 
 app.get('/', (req, res) => {
   res.send({ message: 'Hello from express' });
