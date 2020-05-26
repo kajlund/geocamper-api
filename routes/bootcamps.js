@@ -10,6 +10,8 @@ const {
   uploadBootcampImage,
 } = require('../controllers/bootcamps');
 
+const { protect } = require('../middleware/auth');
+
 const Bootcamp = require('../models/Bootcamp');
 
 const query = require('../middleware/query');
@@ -24,10 +26,17 @@ router.use('/:bootcampId/courses', courseRouter);
 
 router.route('/radius/:zipcode/:distance').get(getBootcampsInRadius);
 
-router.route('/').get(query(Bootcamp, 'courses'), getBootcamps).post(createBootcamp);
+router
+  .route('/')
+  .get(query(Bootcamp, 'courses'), getBootcamps)
+  .post(protect, createBootcamp);
 
-router.route('/:id').get(getBootcamp).put(updateBootcamp).delete(deleteBootcamp);
+router
+  .route('/:id')
+  .get(getBootcamp)
+  .put(protect, updateBootcamp)
+  .delete(protect, deleteBootcamp);
 
-router.route('/:id/photo').put(uploadBootcampImage);
+router.route('/:id/photo').put(protect, uploadBootcampImage);
 
 module.exports = router;

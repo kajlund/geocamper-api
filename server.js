@@ -1,5 +1,6 @@
 const path = require('path');
 
+const cookieParser = require('cookie-parser');
 const dotenv = require('dotenv');
 const express = require('express');
 const fileUpload = require('express-fileupload');
@@ -18,6 +19,9 @@ const app = express();
 
 // Body Parser
 app.use(express.json());
+
+// Cookie Parser
+app.use(cookieParser());
 
 // Dev logging middleware
 if (process.env.NODE_ENV === 'development') {
@@ -38,6 +42,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/v1/bootcamps', require('./routes/bootcamps'));
 app.use('/api/v1/courses', require('./routes/courses'));
+app.use('/api/v1/auth', require('./routes/auth'));
 
 // Generic Error Handler
 app.use((err, req, res, next) => {
